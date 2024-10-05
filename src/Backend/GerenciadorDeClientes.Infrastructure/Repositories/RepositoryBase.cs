@@ -1,4 +1,4 @@
-﻿using GerenciadorDeClientes.Domain.Repositories;
+﻿using GerenciadorDeClientes.Domain.Interfaces;
 using GerenciadorDeClientes.Infrastructure.DataAcess;
 using Microsoft.EntityFrameworkCore;
 

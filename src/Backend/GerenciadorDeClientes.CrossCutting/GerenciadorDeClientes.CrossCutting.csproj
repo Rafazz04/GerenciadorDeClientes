@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GerenciadorDeClientes.Application\GerenciadorDeClientes.Application.csproj" />
+    <ProjectReference Include="..\GerenciadorDeClientes.Domain\GerenciadorDeClientes.Domain.csproj" />
+    <ProjectReference Include="..\GerenciadorDeClientes.Infrastructure\GerenciadorDeClientes.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
