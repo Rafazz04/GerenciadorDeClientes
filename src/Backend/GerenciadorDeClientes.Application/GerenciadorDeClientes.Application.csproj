@@ -6,4 +6,10 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GerenciadorDeClientes.Communication\GerenciadorDeClientes.Communication.csproj" />
+    <ProjectReference Include="..\..\Shared\GerenciadorDeClientes.Exceptions\GerenciadorDeClientes.Exceptions.csproj" />
+    <ProjectReference Include="..\GerenciadorDeClientes.Domain\GerenciadorDeClientes.Domain.csproj" />
+  </ItemGroup>
+
 </Project>
