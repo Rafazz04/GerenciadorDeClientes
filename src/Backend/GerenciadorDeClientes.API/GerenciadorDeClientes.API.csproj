@@ -18,9 +18,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\GerenciadorDeClientes.Communication\GerenciadorDeClientes.Communication.csproj" />
-    <ProjectReference Include="..\..\Shared\GerenciadorDeClientes.Exceptions\GerenciadorDeClientes.Exceptions.csproj" />
     <ProjectReference Include="..\GerenciadorDeClientes.Application\GerenciadorDeClientes.Application.csproj" />
+    <ProjectReference Include="..\GerenciadorDeClientes.CrossCutting\GerenciadorDeClientes.CrossCutting.csproj" />
   </ItemGroup>
 
 </Project>
