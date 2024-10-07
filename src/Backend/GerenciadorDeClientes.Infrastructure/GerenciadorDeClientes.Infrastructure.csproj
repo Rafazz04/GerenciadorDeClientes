@@ -23,8 +23,4 @@
     <ProjectReference Include="..\GerenciadorDeClientes.Domain\GerenciadorDeClientes.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntitiesConfiguration\" />
-  </ItemGroup>
-
 </Project>
