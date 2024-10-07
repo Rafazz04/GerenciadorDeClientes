@@ -10,4 +10,12 @@ public class GerenciadorDeClientesDbContext : DbContext
     public DbSet<Endereco> Enderecos { get; set; }
     public DbSet<Telefone> Telefones { get; set; }
     public DbSet<Email> Emails { get; set; }
+
+    protected void OnModelCreating(ModelBuilder builder)
+    {
+        base.OnModelCreating(builder);
+        builder.ApplyConfigurationsFromAssembly(typeof(GerenciadorDeClientesDbContext).Assembly);
+    }
+
+
 }
