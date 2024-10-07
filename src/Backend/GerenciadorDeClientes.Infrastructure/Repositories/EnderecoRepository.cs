@@ -4,9 +4,9 @@ using GerenciadorDeClientes.Infrastructure.DataAcess;
 
 namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
-public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
+public class EnderecoRepository : RepositoryBase<Endereco>, IEnderecoRepository
 {
-    public ClienteRepository(GerenciadorDeClientesDbContext context) : base(context) 
-    {
-    }
+	public EnderecoRepository(GerenciadorDeClientesDbContext context) : base(context)
+	{
+	}
 }

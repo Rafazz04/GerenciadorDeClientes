@@ -2,6 +2,7 @@
 
 public class Telefone : EntityBase
 {
-    public int ClienteId { get; set; }
-	public string Celular { get; set; }
+	public string Numero { get; set; }
+	public int ClienteId { get; set; }
+	public Cliente Cliente { get; set; }
 }

@@ -4,9 +4,9 @@ using GerenciadorDeClientes.Infrastructure.DataAcess;
 
 namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
-public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
+public class EmailRepository : RepositoryBase<Email>, IEmailRepository
 {
-    public ClienteRepository(GerenciadorDeClientesDbContext context) : base(context) 
-    {
-    }
+	public EmailRepository(GerenciadorDeClientesDbContext context) : base(context)
+	{
+	}
 }

@@ -4,9 +4,9 @@ using GerenciadorDeClientes.Infrastructure.DataAcess;
 
 namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
-public class ClienteRepository : RepositoryBase<Cliente>, IClienteRepository
+public class TelefoneRepository : RepositoryBase<Telefone>, ITelefoneRepository
 {
-    public ClienteRepository(GerenciadorDeClientesDbContext context) : base(context) 
-    {
-    }
+	public TelefoneRepository(GerenciadorDeClientesDbContext context) : base(context)
+	{
+	}
 }
