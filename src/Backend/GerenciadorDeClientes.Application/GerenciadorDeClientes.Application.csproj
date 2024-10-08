@@ -7,12 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\Shared\GerenciadorDeClientes.Communication\GerenciadorDeClientes.Communication.csproj" />
     <ProjectReference Include="..\GerenciadorDeClientes.Domain\GerenciadorDeClientes.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Mappings\" />
-    <Folder Include="Services\Interfaces\" />
+    <PackageReference Include="AutoMapper" Version="13.0.1" />
   </ItemGroup>
 
 </Project>

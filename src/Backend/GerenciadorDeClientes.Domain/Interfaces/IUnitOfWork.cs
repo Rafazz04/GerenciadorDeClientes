@@ -3,5 +3,6 @@
 public interface IUnitOfWork
 {
     IClienteRepository ClienteRepository { get; }
-    void Commit();
+    IEnderecoRepository EnderecoRepository { get; }
+    Task<bool> Commit();
 }

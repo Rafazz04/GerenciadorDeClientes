@@ -12,19 +12,19 @@ public class RepositoryBase<Entity> : IRepositoryBase<Entity> where Entity : cla
     {
         _context = context;
     }
-    public IEnumerable<Entity> GetAll() => _context.Set<Entity>().AsNoTracking().ToList();
-    public Entity GetById(int id) => _context.Set<Entity>().FirstOrDefault(x => EF.Property<int>(x,"Id") == id);
-    public Entity Create(Entity entity)
+    public async Task<IEnumerable<Entity>> GetAll() => await _context.Set<Entity>().AsNoTracking().ToListAsync();
+    public async Task<Entity> GetById(int id) => await _context.Set<Entity>().FindAsync(id);
+    public async Task<Entity> Create(Entity entity)
     {
-        _context.Set<Entity>().Add(entity);
+        await _context.Set<Entity>().AddAsync(entity);
         return entity;
     }
-    public Entity Update(Entity entity)
+    public async Task<Entity> Update(Entity entity)
     {
-        _context.Entry(entity).State = EntityState.Modified;
+        _context.Set<Entity>().Update(entity);
         return entity;
     }
-    public Entity Delete(Entity entity)
+    public async Task<Entity> Delete(Entity entity)
     {
         _context.Set<Entity>().Remove(entity);
         return entity;
