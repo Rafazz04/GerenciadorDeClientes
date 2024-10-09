@@ -41,4 +41,13 @@ public class ClienteController : ControllerBase
 
 		return Ok(paginatedClientes);
 	}
+
+	[HttpPost]
+	public async Task<ActionResult<ClienteDTO>> Post(ClienteDTO clienteDTO)
+	{
+		var cliente = _clienteService.Create(clienteDTO);
+		if (cliente == null)
+			return BadRequest();
+		return Ok(cliente);
+	}
 }
