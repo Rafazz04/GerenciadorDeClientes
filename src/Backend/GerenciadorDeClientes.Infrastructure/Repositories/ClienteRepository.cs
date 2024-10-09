@@ -23,7 +23,7 @@ public class ClienteRepository : IClienteRepository
 	public async Task<IEnumerable<Cliente>> GetAll() => await _repositoryBase.GetAll();
 
 	public async Task<Cliente> GetById(int id) => await _repositoryBase.GetById(id);
-	public async Task<Cliente> GetByCnpj(string cnpj) => await _context.Clientes.FirstOrDefaultAsync(x => x.Cnpj == cnpj);
+	public async Task<Cliente> GetByCnpj(string cnpj) => await _context.CLIENTE.FirstOrDefaultAsync(x => x.Cnpj == cnpj);
 
 	public async Task<Cliente> Create(Cliente	cliente) => await _repositoryBase.Create(cliente);
 	public async Task<Cliente> Update(Cliente cliente) => await _repositoryBase.Update(cliente);

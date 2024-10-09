@@ -23,7 +23,7 @@ public static class DependencyInjectionExtensions
         var connectiontring = configuration.GetConnectionString("DefaultConnection");
         services.AddDbContext<GerenciadorDeClientesDbContext>(ctx =>
         {
-            ctx.UseSqlServer(connectiontring);
+            ctx.UseSqlServer(connectiontring, opt => opt.MigrationsAssembly("GerenciadorDeClientes.Infrastructure"));
         });
     }
     private static void AddRepositories(IServiceCollection services)

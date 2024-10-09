@@ -6,16 +6,14 @@ namespace GerenciadorDeClientes.Infrastructure.DataAcess;
 public class GerenciadorDeClientesDbContext : DbContext
 {
     public GerenciadorDeClientesDbContext(DbContextOptions opt) : base(opt) {}
-    public DbSet<Cliente> Clientes { get; set; }
-    public DbSet<Endereco> Enderecos { get; set; }
-    public DbSet<Telefone> Telefones { get; set; }
-    public DbSet<Email> Emails { get; set; }
+    public DbSet<Cliente> CLIENTE { get; set; }
+    public DbSet<Endereco> ENDERECO { get; set; }
+    public DbSet<Telefone> TELEFONE { get; set; }
+    public DbSet<Email> EMAIL { get; set; }
 
-    protected void OnModelCreating(ModelBuilder builder)
+    protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         builder.ApplyConfigurationsFromAssembly(typeof(GerenciadorDeClientesDbContext).Assembly);
     }
-
-
 }
