@@ -3,10 +3,14 @@ using GerenciadorDeClientes.Application.Services;
 using GerenciadorDeClientes.Application.Services.Interfaces;
 using GerenciadorDeClientes.Domain.Interfaces;
 using GerenciadorDeClientes.Infrastructure.DataAcess;
+using GerenciadorDeClientes.Infrastructure.Integrations.Refit;
+using GerenciadorDeClientes.Infrastructure.Integrations.Services;
+using GerenciadorDeClientes.Infrastructure.Integrations.Services.Interfaces;
 using GerenciadorDeClientes.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Refit;
 
 namespace GerenciadorDeClientes.CrossCutting.IoC;
 
@@ -15,6 +19,7 @@ public static class DependencyInjectionExtensions
     public static void AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDbContext_SqlServer(services, configuration);
+        AddIntegrations_ViaCep(services, configuration);
         AddRepositories(services);
         AddServices(services);
     }
@@ -25,6 +30,16 @@ public static class DependencyInjectionExtensions
         {
             ctx.UseSqlServer(connectiontring, opt => opt.MigrationsAssembly("GerenciadorDeClientes.Infrastructure"));
         });
+    }
+    private static void AddIntegrations_ViaCep(IServiceCollection services, IConfiguration configuration) 
+    {
+        var baseUrl = configuration["ViaCepSettings:BaseUrl"];
+        services.AddRefitClient<IViaCepIntegracaoRefit>().ConfigureHttpClient(opt =>
+        {
+            opt.BaseAddress = new Uri(baseUrl);
+        });   
+
+        services.AddScoped<IViaCepIntegracao, ViaCepIntegracao>();
     }
     private static void AddRepositories(IServiceCollection services)
     {

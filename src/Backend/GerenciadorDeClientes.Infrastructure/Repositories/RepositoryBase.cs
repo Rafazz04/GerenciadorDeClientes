@@ -13,7 +13,7 @@ public class RepositoryBase<Entity> : IRepositoryBase<Entity> where Entity : cla
         _context = context;
     }
     public async Task<IEnumerable<Entity>> GetAll() => await _context.Set<Entity>().AsNoTracking().ToListAsync();
-    public async Task<Entity> GetById(int id) => await _context.Set<Entity>().FindAsync(id);
+	public async Task<Entity> GetById(int id) => await _context.Set<Entity>().FindAsync(id);
     public async Task<Entity> Create(Entity entity)
     {
         await _context.Set<Entity>().AddAsync(entity);
@@ -29,5 +29,4 @@ public class RepositoryBase<Entity> : IRepositoryBase<Entity> where Entity : cla
         _context.Set<Entity>().Remove(entity);
         return entity;
     }
-
 }

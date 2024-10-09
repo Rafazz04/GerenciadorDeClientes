@@ -4,6 +4,7 @@ using GerenciadorDeClientes.Application.Services.Interfaces;
 using GerenciadorDeClientes.Communication.Utils;
 using GerenciadorDeClientes.Domain.Entities;
 using GerenciadorDeClientes.Domain.Interfaces;
+using X.PagedList;
 
 namespace GerenciadorDeClientes.Application.Services;
 
@@ -24,7 +25,12 @@ public class ClienteService : IClienteService
 	{
 		var cliente = await _clienteRepository.GetAll();
 		return _mapper.Map<IEnumerable<ClienteDTO>>(cliente);
-	} 
+	}
+	public IPagedList<ClienteDTO> GetAllPaginated(int pageNumber, int pageSize)
+	{
+		var clientes = _clienteRepository.GetAllPaginated(pageNumber, pageSize);
+		return _mapper.Map<IPagedList<ClienteDTO>>(clientes);
+	}
 
 	public async Task<ClienteDTO> GetById(int id)
 	{

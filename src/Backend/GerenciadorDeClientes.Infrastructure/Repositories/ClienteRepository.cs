@@ -2,6 +2,7 @@
 using GerenciadorDeClientes.Domain.Interfaces;
 using GerenciadorDeClientes.Infrastructure.DataAcess;
 using Microsoft.EntityFrameworkCore;
+using X.PagedList;
 
 namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
@@ -21,7 +22,11 @@ public class ClienteRepository : IClienteRepository
 	}
 
 	public async Task<IEnumerable<Cliente>> GetAll() => await _repositoryBase.GetAll();
-
+	public  IPagedList<Cliente> GetAllPaginated(int pageNumber, int pageSize)
+	{
+		var clientes = _context.CLIENTE.AsQueryable();
+		return clientes.ToPagedList(pageNumber, pageSize);
+	}
 	public async Task<Cliente> GetById(int id) => await _repositoryBase.GetById(id);
 	public async Task<Cliente> GetByCnpj(string cnpj) => await _context.CLIENTE.FirstOrDefaultAsync(x => x.Cnpj == cnpj);
 
@@ -29,5 +34,4 @@ public class ClienteRepository : IClienteRepository
 	public async Task<Cliente> Update(Cliente cliente) => await _repositoryBase.Update(cliente);
 
 	public Task<Cliente> Delete(Cliente cliente) => _repositoryBase.Delete(cliente);
-
 }

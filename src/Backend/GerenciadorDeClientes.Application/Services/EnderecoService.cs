@@ -1,5 +1,7 @@
-﻿namespace GerenciadorDeClientes.Application.Services;
+﻿using GerenciadorDeClientes.Application.Services.Interfaces;
 
-public class EnderecoService
+namespace GerenciadorDeClientes.Application.Services;
+
+public class EnderecoService : IEnderecoService
 {
 }

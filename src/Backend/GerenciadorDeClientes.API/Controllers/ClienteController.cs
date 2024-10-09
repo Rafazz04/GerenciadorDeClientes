@@ -30,4 +30,15 @@ public class ClienteController : ControllerBase
 			return StatusCode(500, $"Erro interno do servidor: {ex.Message} - {ex.StackTrace}");
 		}
 	}
+
+	[HttpGet("Paginated")]
+	public async Task<ActionResult<IEnumerable<ClienteDTO>>> GetPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+	{
+		var paginatedClientes = _clienteService.GetAllPaginated(pageNumber, pageSize);
+
+		if (paginatedClientes == null || !paginatedClientes.Any())
+			return NotFound("Nenhum cliente encontrado!");
+
+		return Ok(paginatedClientes);
+	}
 }
