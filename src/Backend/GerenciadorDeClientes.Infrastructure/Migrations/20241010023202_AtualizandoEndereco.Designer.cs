@@ -4,6 +4,7 @@ using GerenciadorDeClientes.Infrastructure.DataAcess;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GerenciadorDeClientes.Infrastructure.Migrations
 {
     [DbContext(typeof(GerenciadorDeClientesDbContext))]
-    partial class GerenciadorDeClientesDbContextModelSnapshot : ModelSnapshot
+    [Migration("20241010023202_AtualizandoEndereco")]
+    partial class AtualizandoEndereco
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

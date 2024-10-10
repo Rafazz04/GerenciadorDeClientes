@@ -6,7 +6,13 @@ namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
 public class TelefoneRepository : RepositoryBase<Telefone>, ITelefoneRepository
 {
-	public TelefoneRepository(GerenciadorDeClientesDbContext context) : base(context)
+    private readonly GerenciadorDeClientesDbContext _context;
+    public TelefoneRepository(GerenciadorDeClientesDbContext context) : base(context)
 	{
+        _context = context;
 	}
+    public IEnumerable<Telefone> GetByClienteId(int clienteId)
+    {
+        return _context.TELEFONE.Where(t => t.ClienteId == clienteId).ToList();
+    }
 }

@@ -54,9 +54,9 @@ public static class DependencyInjectionExtensions
     private static void AddServices(IServiceCollection services)
     {
         services.AddScoped<IClienteService, ClienteService>();
-        //services.AddScoped<ITelefoneService, TelefoneService>();
-        //services.AddScoped<IEmailService, EmailService>();
-        //services.AddScoped<IEnderecoService, EnderecoService>();
+        services.AddScoped<ITelefoneService, TelefoneService>();
+        services.AddScoped<IEmailService, EmailService>();
+        services.AddScoped<IEnderecoService, EnderecoService>();
         services.AddAutoMapper(typeof(GerenciadorDeClientesMappingProfile));
     }
 }

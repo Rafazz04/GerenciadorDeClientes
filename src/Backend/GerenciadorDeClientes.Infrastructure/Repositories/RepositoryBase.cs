@@ -12,19 +12,19 @@ public class RepositoryBase<Entity> : IRepositoryBase<Entity> where Entity : cla
     {
         _context = context;
     }
-    public async Task<IEnumerable<Entity>> GetAll() => await _context.Set<Entity>().AsNoTracking().ToListAsync();
-	public async Task<Entity> GetById(int id) => await _context.Set<Entity>().FindAsync(id);
-    public async Task<Entity> Create(Entity entity)
+    public IEnumerable<Entity> GetAll() =>  _context.Set<Entity>().AsNoTracking().ToList();
+	public Entity GetById(int id) =>  _context.Set<Entity>().Find(id);
+    public Entity Create(Entity entity)
     {
-        await _context.Set<Entity>().AddAsync(entity);
+         _context.Set<Entity>().Add(entity);
         return entity;
     }
-    public async Task<Entity> Update(Entity entity)
+    public Entity Update(Entity entity)
     {
         _context.Set<Entity>().Update(entity);
         return entity;
     }
-    public async Task<Entity> Delete(Entity entity)
+    public Entity Delete(Entity entity)
     {
         _context.Set<Entity>().Remove(entity);
         return entity;

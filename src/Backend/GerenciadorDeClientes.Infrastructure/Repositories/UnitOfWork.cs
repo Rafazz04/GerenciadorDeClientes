@@ -5,16 +5,20 @@ namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
 public class UnitOfWork : IUnitOfWork
 {
-    private IClienteRepository _clienteRepo;
-    private IEnderecoRepository _enderecoRepo;
-    public GerenciadorDeClientesDbContext _context;
-    public UnitOfWork(GerenciadorDeClientesDbContext context)
+    private readonly GerenciadorDeClientesDbContext _context;
+    private readonly IClienteRepository _clienteRepo;
+    private readonly IEnderecoRepository _enderecoRepo;
+
+    public UnitOfWork(GerenciadorDeClientesDbContext context, IClienteRepository clienteRepo,IEnderecoRepository enderecoRepo)
     {
         _context = context;
+        _clienteRepo = clienteRepo;
+        _enderecoRepo = enderecoRepo;
     }
-    public IClienteRepository ClienteRepository {  get { return _clienteRepo = _clienteRepo ?? new ClienteRepository(_context); } }
-    public IEnderecoRepository EnderecoRepository { get { return _enderecoRepo ?? new EnderecoRepository(_context); } }
 
-	public async Task<bool> Commit() => await _context.SaveChangesAsync() > 0;
-    public void Dispose() => _context.DisposeAsync();
+    public IClienteRepository ClienteRepository => _clienteRepo;
+    public IEnderecoRepository EnderecoRepository => _enderecoRepo;
+
+    public bool Commit() =>  _context.SaveChanges() > 0;
+
 }

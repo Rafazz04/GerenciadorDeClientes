@@ -4,5 +4,5 @@ namespace GerenciadorDeClientes.Infrastructure.Integrations.Services.Interfaces;
 
 public interface IViaCepIntegracao
 {
-	Task<ViaCepResponse> ObterDadosViaCep(string cep);
+	ViaCepResponse ObterDadosViaCep(string cep);
 }

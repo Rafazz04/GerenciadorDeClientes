@@ -11,8 +11,7 @@ public class EnderecoConfiguration : IEntityTypeConfiguration<Endereco>
 		builder.HasKey(e => e.Id);
 
 		builder.Property(e => e.Logradouro)
-			.HasMaxLength(200)
-			.IsRequired();
+			.HasMaxLength(200);
 
 		builder.Property(e => e.Numero)
 			.HasMaxLength(10);
@@ -24,11 +23,9 @@ public class EnderecoConfiguration : IEntityTypeConfiguration<Endereco>
 			.HasMaxLength(200);
 
 		builder.Property(e => e.Cidade)
-			.IsRequired()
 			.HasMaxLength(100);
 
 		builder.Property(e => e.Estado)
-			.IsRequired()
 			.HasMaxLength(100);
 
 		builder.Property(e => e.Cep)

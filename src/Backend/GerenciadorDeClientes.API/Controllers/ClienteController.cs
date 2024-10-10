@@ -16,11 +16,11 @@ public class ClienteController : ControllerBase
 	}
 
 	[HttpGet]
-	public async Task<ActionResult<IEnumerable<ClienteDTO>>> Get()
+	public ActionResult<IEnumerable<ClienteDTO>> Get()
 	{
 		try
 		{
-			var clientes = await _clienteService.GetAll();
+			var clientes =  _clienteService.GetAll();
 			if(clientes.Any()) 
 				return Ok(clientes); 
 			return NotFound();
@@ -32,7 +32,7 @@ public class ClienteController : ControllerBase
 	}
 
 	[HttpGet("Paginated")]
-	public async Task<ActionResult<IEnumerable<ClienteDTO>>> GetPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+	public ActionResult<IEnumerable<ClienteDTO>> GetPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
 	{
 		var paginatedClientes = _clienteService.GetAllPaginated(pageNumber, pageSize);
 
@@ -43,11 +43,29 @@ public class ClienteController : ControllerBase
 	}
 
 	[HttpPost]
-	public async Task<ActionResult<ClienteDTO>> Post(ClienteDTO clienteDTO)
+	public ActionResult<ClienteDTO> Post(ClienteDTO clienteDTO)
 	{
 		var cliente = _clienteService.Create(clienteDTO);
 		if (cliente == null)
 			return BadRequest();
 		return Ok(cliente);
+	}
+
+	[HttpPut("{cnpj}")]
+	public ActionResult<ClienteDTO> Put(string cnpj, ClienteUpdateDTO clienteUpdateDTO)
+	{
+        var cliente = _clienteService.Update(cnpj, clienteUpdateDTO);
+        if (cliente == null)
+            return BadRequest();
+        return Ok(cliente);
+    }
+
+	[HttpDelete]
+	public ActionResult Delete(string cnpj) 
+	{ 
+		var cliente = _clienteService.Delete(cnpj);
+		if(cliente)
+			return Ok();
+		return NotFound("Cliente não encontrado!");
 	}
 }

@@ -6,7 +6,14 @@ namespace GerenciadorDeClientes.Infrastructure.Repositories;
 
 public class EnderecoRepository : RepositoryBase<Endereco>, IEnderecoRepository
 {
-	public EnderecoRepository(GerenciadorDeClientesDbContext context) : base(context)
-	{
-	}
+    private readonly GerenciadorDeClientesDbContext _context;
+    public EnderecoRepository(GerenciadorDeClientesDbContext context) : base(context)
+    {
+        _context = context;
+    }
+
+    public IEnumerable<Endereco> GetByClienteId(int clienteId)
+    {
+        return _context.ENDERECO.Where(t => t.ClienteId == clienteId).ToList();
+    }
 }

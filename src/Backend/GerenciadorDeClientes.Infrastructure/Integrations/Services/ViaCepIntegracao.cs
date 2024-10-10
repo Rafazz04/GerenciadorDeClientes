@@ -13,9 +13,9 @@ public class ViaCepIntegracao : IViaCepIntegracao
 		_viaCepRefit = refit;
 	}
 
-	public async Task<ViaCepResponse> ObterDadosViaCep(string cep)
+	public ViaCepResponse ObterDadosViaCep(string cep)
 	{
-		var responseData = await _viaCepRefit.GetViaCep(cep);
+		var responseData = _viaCepRefit.GetViaCep(cep).Result;
 		if (responseData != null && responseData.IsSuccessStatusCode)
 			return responseData.Content;
 		return null;

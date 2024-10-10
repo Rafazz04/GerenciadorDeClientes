@@ -16,22 +16,18 @@ public class ClienteRepository : IClienteRepository
 		_context = context;
 		_repositoryBase = repositoryBase;
 	}
-	public ClienteRepository(GerenciadorDeClientesDbContext context)
-	{
-		_context = context;
-	}
 
-	public async Task<IEnumerable<Cliente>> GetAll() => await _repositoryBase.GetAll();
+	public IEnumerable<Cliente> GetAll() =>  _repositoryBase.GetAll();
 	public  IPagedList<Cliente> GetAllPaginated(int pageNumber, int pageSize)
 	{
 		var clientes = _context.CLIENTE.AsQueryable();
 		return clientes.ToPagedList(pageNumber, pageSize);
 	}
-	public async Task<Cliente> GetById(int id) => await _repositoryBase.GetById(id);
-	public async Task<Cliente> GetByCnpj(string cnpj) => await _context.CLIENTE.FirstOrDefaultAsync(x => x.Cnpj == cnpj);
+	public Cliente GetById(int id) =>  _repositoryBase.GetById(id);
+	public Cliente GetByCnpj(string cnpj) =>  _context.CLIENTE.FirstOrDefault(x => x.Cnpj == cnpj);
 
-	public async Task<Cliente> Create(Cliente	cliente) => await _repositoryBase.Create(cliente);
-	public async Task<Cliente> Update(Cliente cliente) => await _repositoryBase.Update(cliente);
+	public Cliente Create(Cliente	cliente) =>  _repositoryBase.Create(cliente);
+	public Cliente Update(Cliente cliente) =>  _repositoryBase.Update(cliente);
 
-	public Task<Cliente> Delete(Cliente cliente) => _repositoryBase.Delete(cliente);
+	public void Delete(Cliente cliente) => _repositoryBase.Delete(cliente);
 }
