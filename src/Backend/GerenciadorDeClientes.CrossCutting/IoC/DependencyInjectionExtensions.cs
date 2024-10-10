@@ -1,6 +1,9 @@
-﻿using GerenciadorDeClientes.Application.Mappings;
+﻿using FluentValidation;
+using GerenciadorDeClientes.Application.DTOs;
+using GerenciadorDeClientes.Application.Mappings;
 using GerenciadorDeClientes.Application.Services;
 using GerenciadorDeClientes.Application.Services.Interfaces;
+using GerenciadorDeClientes.Application.Validators;
 using GerenciadorDeClientes.Domain.Interfaces;
 using GerenciadorDeClientes.Infrastructure.DataAcess;
 using GerenciadorDeClientes.Infrastructure.Integrations.Refit;
@@ -59,4 +62,11 @@ public static class DependencyInjectionExtensions
         services.AddScoped<IEnderecoService, EnderecoService>();
         services.AddAutoMapper(typeof(GerenciadorDeClientesMappingProfile));
     }
+	private static void AddValidators(IServiceCollection services)
+	{
+		services.AddScoped<IValidator<ClienteDTO>, ClienteDtoValidator>();
+		services.AddScoped<IValidator<TelefoneDTO>, TelefoneDtoValidator>();
+		services.AddScoped<IValidator<EmailDTO>, EmailDtoValidator>();
+		services.AddScoped<IValidator<EnderecoDTO>, EnderecoDtoValidator>();
+	}
 }
