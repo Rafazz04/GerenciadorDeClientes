@@ -5,8 +5,8 @@
 </p>
 
 ## 📋 Pré-requisitos
-**-Ter o Visual Studio instalado com suporte ao .NET 8.<br>
-**-Ter o SQL Server instalado e configurado.<br>
+**-Ter o Visual Studio instalado com suporte ao .NET 8.**<br>
+**-Ter o SQL Server instalado e configurado.**<br>
 
 ## 📁 Acesso ao projeto
 Fazer o clone do projeto com o comando: git clone https://github.com/Rafazz04/GerenciadorDeClientes.git
