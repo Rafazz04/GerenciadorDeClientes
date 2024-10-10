@@ -4,13 +4,17 @@
 <img src="http://img.shields.io/static/v1?label=STATUS&message=CONCLUIDO&color=GREEN&style=for-the-badge"/>
 </p>
 
-## 📁 Acesso ao projeto
+## 📋 Pré-requisitos
+**-Ter o Visual Studio instalado com suporte ao .NET 8.<br>
+**-Ter o SQL Server instalado e configurado.<br>
 
+## 📁 Acesso ao projeto
 Fazer o clone do projeto com o comando: git clone https://github.com/Rafazz04/GerenciadorDeClientes.git
 
 ## 🛠️ Abrir e rodar o projeto
-**-Abra a solução do projeto GerenciadorDeClientes.sln (Isso pelo Visual Studio)**<br>
-**-Com o projeto aberto vá até a aba Ferramentas -> Geremciador de pacotes nuget -> abra o Console do gerenciador de pacotes -> Rode o comando Update-Database**<br>
+**-Abra a pasta do projeto GerenciadorDeClientes**<br>
+**-Abra a solução do projeto GerenciadorDeClientes.sln (Abra com Visual Studio)**<br>
+**-Com o projeto aberto vá até a aba Ferramentas -> Geremciador de pacotes nuget -> abra o Console do gerenciador de pacotes -> Rode o comando Update-Database (Padrão: Autenticação com windows Server:LocalHost)**<br>
 **-Depois de rodar o migrations pode executar a aplicação(f5)**<br>
 
 ## 🔨 Funcionalidades do projeto
