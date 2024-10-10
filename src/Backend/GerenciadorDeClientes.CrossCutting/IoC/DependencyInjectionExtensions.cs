@@ -25,6 +25,7 @@ public static class DependencyInjectionExtensions
         AddIntegrations_ViaCep(services, configuration);
         AddRepositories(services);
         AddServices(services);
+        AddValidators(services);
     }
     private static void AddDbContext_SqlServer(IServiceCollection services, IConfiguration configuration)
     {
