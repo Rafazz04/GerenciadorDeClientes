@@ -20,10 +20,10 @@ public class EmailController : ControllerBase
     {
         try
         {
-            var email = _emailService.GetByCnpj(cnpj);
-            if (email == null)
+            var emails = _emailService.GetByCnpj(cnpj);
+            if (emails == null || !emails.Any())
                 return NotFound("Email não encontrado para o cliente com o CNPJ fornecido.");
-            return Ok(email);
+            return Ok(emails);
         }
         catch (Exception ex)
         {

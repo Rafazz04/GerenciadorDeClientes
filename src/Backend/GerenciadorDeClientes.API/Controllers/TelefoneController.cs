@@ -20,10 +20,10 @@ public class TelefoneController : ControllerBase
     {
         try
         {
-            var telefone = _telefoneService.GetByCnpj(cnpj);
-            if (telefone == null)
+            var telefones = _telefoneService.GetByCnpj(cnpj);
+            if (telefones == null || !telefones.Any())
                 return NotFound("Telefone não encontrado para o cliente com o CNPJ fornecido.");
-            return Ok(telefone);
+            return Ok(telefones);
         }
         catch (Exception ex)
         {
