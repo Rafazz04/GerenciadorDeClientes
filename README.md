@@ -36,21 +36,27 @@ Implementei o **Repository Pattern** junto ao **Unit of Work** para gerenciar as
 
 - **Abstração no acesso a dados**: O código de acesso ao banco de dados é desacoplado da lógica de negócio, facilitando mudanças no sistema de armazenamento.
 - **Gerenciamento eficiente de transações**: O **Unit of Work** assegura que todas as operações sejam tratadas como uma única transação, evitando inconsistências e garantindo a integridade dos dados.
-
-### Integração com a API Via Cep
-Para otimizar o cadastro de endereços, integrei o sistema à **API Via Cep**, permitindo a busca automática de dados a partir do CEP informado. Isso acelera o processo de cadastro e melhora a precisão das informações inseridas. Também no cadastro de cliente (post), quando voce digita o cep, ele pega o restante dos dados com essa Api externa e armazena esses dados na tabela de Endereço 
-
-### Code First
-Utilizei a abordagem **Code First** com o **Entity Framework**, gerando o banco de dados a partir dos modelos de domínio. O uso de **migrations** permite o controle versionado da evolução do banco de dados, facilitando a sincronização entre diferentes ambientes.
-
+  
 ### Injeção de Dependência e Inversão de Controle (IoC)
 Adotei os padrões de **Injeção de Dependência** e **Inversão de Controle (IoC)**, que proporcionam:
 
 - **Desacoplamento de componentes**: As dependências são injetadas dinamicamente, permitindo fácil substituição sem grandes alterações no código.
 - **Facilidade na manutenção e teste**: A injeção de dependências permite simular serviços e repositórios, melhorando a eficiência dos testes e a agilidade na manutenção.
 
+### Integração com a API Via Cep
+Para otimizar o cadastro de endereços, integrei o sistema à **API Via Cep**, permitindo a busca automática de dados a partir do CEP informado. Isso acelera o processo de cadastro e melhora a precisão das informações inseridas. Também no cadastro de cliente (post), quando voce digita o cep, ele pega o restante dos dados com essa Api externa e armazena esses dados na tabela de Endereço 
+
+### Testes Unitários com xUnit
+Implementei um conjunto de testes unitários para as controllers para garantir a qualidade e a estabilidade do código. Os detalhes da abordagem utilizada são os seguintes:
+- **Estrutura de teste: Utilizei o xUnit como estrutura de teste para garantir uma estrutura consistente e eficiente na execução dos testes.
+- **Mock: Usei a biblioteca Moq para isolar dependências e padronizar comportamentos. Isso permite realizar testes independentes, concentrando-se em partes específicas do código, sem depender de serviços ou bancos de dados externos.
+
+### Code First
+Utilizei a abordagem **Code First** com o **Entity Framework**, gerando o banco de dados a partir dos modelos de domínio. O uso de **migrations** permite o controle versionado da evolução do banco de dados, facilitando a sincronização entre diferentes ambientes.
+
 ### Validators
 Para garantir a validação eficiente dos dados de entrada, implementei a biblioteca **FluentValidation**. Essa abordagem permite criar regras de validação de maneira fluida e expressiva, facilitando a leitura e manutenção do código.
+
 
 
 ## ✔️ Técnicas e Tecnologias utilizadas
@@ -60,10 +66,13 @@ Para garantir a validação eficiente dos dados de entrada, implementei a biblio
 - ``Clean Architecture``
 - ``Injeção de dependência``
 - ``Inversão de controle``
+- ``Teste de unidade``
 - ``Repository Pattern``
 - ``Unit of Work``
 - ``Code-First``
 - ``AutoMapper``
+- ``Migrations``
 - ``FluentValidation``
+- ``Moq``
 - ``Integração com api externa``
 
