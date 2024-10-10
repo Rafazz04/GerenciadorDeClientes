@@ -9,7 +9,6 @@
 Fazer o clone do projeto com o comando: git clone https://github.com/Rafazz04/GerenciadorDeClientes.git
 
 ## 🛠️ Abrir e rodar o projeto
-**-Abra a pasta GerenciadorDeClientes**<br>
 **-Abra a solução do projeto GerenciadorDeClientes.sln (Isso pelo Visual Studio)**<br>
 **-Com o projeto aberto vá até a aba Ferramentas -> Geremciador de pacotes nuget -> abra o Console do gerenciador de pacotes -> Rode o comando Update-Database**<br>
 **-Depois de rodar o migrations pode executar a aplicação(f5)**<br>
