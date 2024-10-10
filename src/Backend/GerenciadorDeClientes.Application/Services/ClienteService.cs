@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using GerenciadorDeClientes.Application.DTOs;
 using GerenciadorDeClientes.Application.Services.Interfaces;
 using GerenciadorDeClientes.Communication.Utils;
 using GerenciadorDeClientes.Domain.Entities;
 using GerenciadorDeClientes.Domain.Interfaces;
 using GerenciadorDeClientes.Infrastructure.Integrations.Services.Interfaces;
-using System.Runtime.ConstrainedExecution;
 using X.PagedList;
 
 namespace GerenciadorDeClientes.Application.Services;
@@ -19,8 +19,9 @@ public class ClienteService : IClienteService
 	private IViaCepIntegracao _viaCepIntegracao;
     private IUnitOfWork _unitOfWork;
 	private readonly IMapper _mapper;
+	private readonly IValidator<ClienteDTO> _validator;
 
-	public ClienteService(IClienteRepository clienteRepository, IEmailRepository emailRepository, ITelefoneRepository telefoneRepository, IEnderecoRepository enderecoRepository, IViaCepIntegracao viaCepIntegracao, IUnitOfWork unitOfWork, IMapper mapper)
+	public ClienteService(IClienteRepository clienteRepository, IEmailRepository emailRepository, ITelefoneRepository telefoneRepository, IEnderecoRepository enderecoRepository, IViaCepIntegracao viaCepIntegracao, IUnitOfWork unitOfWork, IMapper mapper, IValidator<ClienteDTO> validator)
 	{
 		_clienteRepository = clienteRepository;
 		_enderecoRepository = enderecoRepository;
@@ -29,6 +30,7 @@ public class ClienteService : IClienteService
 		_viaCepIntegracao = viaCepIntegracao;
 		_unitOfWork = unitOfWork;
 		_mapper = mapper;
+		_validator = validator;
 	}
 
 	public IEnumerable<ClienteDTO> GetAll()
@@ -59,30 +61,35 @@ public class ClienteService : IClienteService
 	{
 		try
 		{
-			var cliente =  CriaCliente(clienteDTO);
-			if(_unitOfWork.Commit())
+			if (_validator.Validate(clienteDTO).IsValid)
 			{
-				var endereco = CriaEndereco(clienteDTO.Cep, cliente.Id);
-
-				var telefone = new Telefone
+				var cliente = CriaCliente(clienteDTO);
+				if (_unitOfWork.Commit())
 				{
-					ClienteId = cliente.Id,
-					Numero = clienteDTO.Celular
-				};
+					var endereco = CriaEndereco(clienteDTO.Cep, cliente.Id);
 
-                var email = new Email
-                {
-                    EnderecoEmail = clienteDTO.Email, 
-                    ClienteId = cliente.Id              
-                };
+					var telefone = new Telefone
+					{
+						ClienteId = cliente.Id,
+						Numero = clienteDTO.Celular
+					};
 
-                 _telefoneRepository.Create(telefone);
-                 _emailRepository.Create(email);
+					var email = new Email
+					{
+						EnderecoEmail = clienteDTO.Email,
+						ClienteId = cliente.Id
+					};
 
-                if(_unitOfWork.Commit())
-					return clienteDTO;
-            }
-			throw new Exception("Erro ao adicionar cliente");
+					_telefoneRepository.Create(telefone);
+					_emailRepository.Create(email);
+
+					if (_unitOfWork.Commit())
+						return clienteDTO;
+				}
+				throw new Exception("Erro ao adicionar cliente");
+			}
+			var validationErrors = string.Join(", ", _validator.Validate(clienteDTO).Errors.Select(e => e.ErrorMessage));
+			throw new ValidationException($"Erro de validação: {validationErrors}");
 		}
 		catch (Exception ex) 
 		{

@@ -1,6 +1,8 @@
-﻿using GerenciadorDeClientes.Application.DTOs;
+﻿using AutoMapper;
+using GerenciadorDeClientes.Application.DTOs;
 using GerenciadorDeClientes.Application.Services.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace GerenciadorDeClientes.API.Controllers;
 
@@ -9,37 +11,44 @@ namespace GerenciadorDeClientes.API.Controllers;
 public class ClienteController : ControllerBase
 {
     private readonly IClienteService _clienteService;
+	IMapper _mapper;
 
-	public ClienteController(IClienteService clienteService)
+	public ClienteController(IClienteService clienteService, IMapper mapper)
 	{
 		_clienteService = clienteService;
+		_mapper = mapper;
 	}
 
 	[HttpGet]
-	public ActionResult<IEnumerable<ClienteDTO>> Get()
+	public ActionResult<IEnumerable<ClienteDTO>> Get([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
 	{
 		try
 		{
 			var clientes =  _clienteService.GetAll();
-			if(clientes.Any()) 
-				return Ok(clientes); 
-			return NotFound();
+
+			if(clientes is null)
+				return NotFound();
+
+			var clientesPaginados = clientes.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+			var clientesDto = _mapper.Map<IEnumerable<ClienteDTO>>(clientesPaginados);
+
+			var metadata = new
+			{
+				TotalCount = clientes.Count(),
+				PageSize = pageSize,
+				CurrentPage = pageNumber,
+				TotalPages = (int)Math.Ceiling(clientes.Count() / (double)pageSize),
+				HasNext = pageNumber < (int)Math.Ceiling(clientes.Count() / (double)pageSize),
+				HasPrevious = pageNumber > 1
+			};
+
+			Response.Headers.Append("X-Pagination", JsonConvert.SerializeObject(metadata));
+			return Ok(clientesDto);
 		}
 		catch (Exception ex)
 		{
 			return StatusCode(500, $"Erro interno do servidor: {ex.Message} - {ex.StackTrace}");
 		}
-	}
-
-	[HttpGet("Paginated")]
-	public ActionResult<IEnumerable<ClienteDTO>> GetPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
-	{
-		var paginatedClientes = _clienteService.GetAllPaginated(pageNumber, pageSize);
-
-		if (paginatedClientes == null || !paginatedClientes.Any())
-			return NotFound("Nenhum cliente encontrado!");
-
-		return Ok(paginatedClientes);
 	}
 
 	[HttpPost]

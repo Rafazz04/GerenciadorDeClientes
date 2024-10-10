@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using FluentValidation;
 using GerenciadorDeClientes.Application.DTOs;
 using GerenciadorDeClientes.Application.Services.Interfaces;
 using GerenciadorDeClientes.Domain.Entities;
@@ -12,13 +13,15 @@ public class EmailService : IEmailService
     private readonly IClienteRepository _clienteRepository;
     private readonly IUnitOfWork _unitOfWork;
     private readonly IMapper _mapper;
+	private readonly IValidator<EmailDTO> _validator;
 
-    public EmailService(IEmailRepository emailRepository, IClienteRepository clienteRepository, IUnitOfWork unitOfWork, IMapper mapper)
+	public EmailService(IEmailRepository emailRepository, IClienteRepository clienteRepository, IUnitOfWork unitOfWork, IMapper mapper, IValidator<EmailDTO> validator)
     {
         _emailRepository = emailRepository;
         _clienteRepository = clienteRepository;
         _unitOfWork = unitOfWork;
         _mapper = mapper;
+        _validator = validator;
     }
 
     public IEnumerable<EmailDTO> GetByCnpj(string cnpj)
@@ -33,18 +36,31 @@ public class EmailService : IEmailService
 
     public EmailDTO Create(EmailDTO emailDTO)
     {
-        var cliente = _clienteRepository.GetByCnpj(emailDTO.Cnpj);
-        if (cliente == null)
-            throw new Exception("Cliente não encontrado!");
+        try
+        {
+            if (_validator.Validate(emailDTO).IsValid)
+            {
+				var cliente = _clienteRepository.GetByCnpj(emailDTO.Cnpj);
+				if (cliente == null)
+					throw new Exception("Cliente não encontrado!");
 
-        var email = _mapper.Map<Email>(emailDTO); 
-        email.Cliente = cliente;
+				var email = _mapper.Map<Email>(emailDTO);
+				email.Cliente = cliente;
 
-        _emailRepository.Create(email);
-        if (_unitOfWork.Commit())
-            return emailDTO;
+				_emailRepository.Create(email);
+				if (_unitOfWork.Commit())
+					return emailDTO;
 
-        throw new Exception("Erro ao salvar e-mail");
+				throw new Exception("Erro ao salvar e-mail");
+			}
+			var validationErrors = string.Join(", ", _validator.Validate(emailDTO).Errors.Select(e => e.ErrorMessage));
+			throw new ValidationException($"Erro de validação: {validationErrors}");
+		}
+        catch (Exception ex) 
+        {
+			throw new Exception($"{ex.Message} - {ex.StackTrace}");
+		}
+        
     }
 
     public bool Delete(int id)
