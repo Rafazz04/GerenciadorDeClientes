@@ -17,7 +17,7 @@ Fazer o clone do projeto com o comando: git clone https://github.com/Rafazz04/Ge
 ## 🔨 Funcionalidades do projeto
 -``Cadastro de Clientes, telefones, emails e Endereços:`` Post<br>
 -``Endpoint para buscar dados do cep integrado com https://viacep.com.br/:`` GetDadosDoEndereco<br>
--``Listagem de Clientes, telefones, emails e endereços:`` Get<br>
+-``Listagem de Clientes de forma paginada, telefones, emails e endereços:`` Get<br>
 -``Lista um unico Cliente, lista todos os telefones que tem vinculo com esse cnpj, lista todos os emails que tem vinculo com esse cnpjm, e todos os endereços que tem vinculo com esse cnpj:`` GetByCnpj()<br>
 -``Atualizar lista de Clientes:`` Put<br>
 -``Deletar Clientes, telefones, emails e endereços:`` Delete<br>
@@ -49,7 +49,8 @@ Adotei os padrões de **Injeção de Dependência** e **Inversão de Controle (I
 - **Desacoplamento de componentes**: As dependências são injetadas dinamicamente, permitindo fácil substituição sem grandes alterações no código.
 - **Facilidade na manutenção e teste**: A injeção de dependências permite simular serviços e repositórios, melhorando a eficiência dos testes e a agilidade na manutenção.
 
-Essas práticas, em conjunto, fortalecem a robustez, escalabilidade e flexibilidade do sistema, facilitando sua evolução ao longo do tempo.
+### Validators
+Para garantir a validação eficiente dos dados de entrada, implementei a biblioteca **FluentValidation**. Essa abordagem permite criar regras de validação de maneira fluida e expressiva, facilitando a leitura e manutenção do código.
 
 
 ## ✔️ Técnicas e Tecnologias utilizadas
@@ -63,5 +64,6 @@ Essas práticas, em conjunto, fortalecem a robustez, escalabilidade e flexibilid
 - ``Unit of Work``
 - ``Code-First``
 - ``AutoMapper``
+- ``FluentValidation``
 - ``Integração com api externa``
 
